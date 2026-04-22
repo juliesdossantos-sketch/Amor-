@@ -73,11 +73,6 @@ button {
   margin: 10px;
 }
 
-iframe {
-  margin-top: 20px;
-  border-radius: 15px;
-}
-
 .heart {
   position: fixed;
   bottom: -10px;
@@ -87,6 +82,11 @@ iframe {
 @keyframes subir {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+#letra {
+  margin: 20px;
+  font-size: 18px;
 }
 </style>
 </head>
@@ -119,7 +119,12 @@ iframe {
 </div>
 
 <h2>Nossa música 🎶</h2>
-<iframe id="player" width="300" height="170" src="https://www.youtube.com/embed/_9hkXCYiEjc?enablejsapi=1" allow="autoplay"></iframe>
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<h2>🎶 Tradução</h2>
+<p id="letra"></p>
 
 <script>
 const mensagem = "Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕, Obrigada por se tornar tão especial para mim.";
@@ -150,8 +155,8 @@ function abrirCarta(el) {
 
   setTimeout(escrever, 500);
 
-  const iframe = document.getElementById("player");
-  iframe.src += "&autoplay=1";
+  document.getElementById("musica").play();
+  mostrarLetra();
 }
 
 const dataInicio = new Date("2026-02-08");
@@ -164,6 +169,53 @@ function atualizarContador() {
 }
 
 setInterval(atualizarContador, 1000);
+
+const letraMusica = [
+  "Maybe I","Talvez eu","",
+  "Lost my mind","Tenha perdido o juízo","",
+  "No one noticed","Ninguém percebeu","",
+  "No one noticed","Ninguém percebeu","",
+  "It's getting old","Está ficando velho","",
+  "All alone","Totalmente sozinha","",
+  "May have lost it","Devo ter perdido","",
+  "I have lost it","Eu perdi","",
+  "No one tried","Ninguém tentou","",
+  "To read my eyes","Ler meus olhos","",
+  "No one but you","Ninguém além de você","",
+  "Wish it weren't true","Queria que não fosse verdade","",
+  "Maybe I","Talvez eu","",
+  "It's not right","Não está certo","",
+  "Make you mine","Te fazer meu","",
+  "Take our time","Iremos com calma","",
+  "Come on, don't leave me","Vamos, não me deixe","",
+  "It can't be that easy, babe","Não pode ser tão fácil, meu bem","",
+  "If you believe me","Se você acredita em mim","",
+  "I'll get on a plane","Acho que vou pegar um avião","",
+  "Fly to your city","Voar para a sua cidade","",
+  "Excited to see your face","Ansiosa para ver o seu rosto","",
+  "Hold me, console me","Me abrace, me console","",
+  "Then I'll leave without a trace","E então partirei sem deixar rastros","",
+  "I'd kinda like it if you'd call me","Eu meio que gostaria que você me ligasse","",
+  "'Cause I'm so over bein' lonely","Porque cansei de ficar solitária","",
+  "I need a virtual connection","Eu preciso de uma conexão virtual","",
+  "Be my video obsession","Seja minha obsessão em vídeo"
+];
+
+let linha = 0;
+
+function mostrarLetra() {
+  const elemento = document.getElementById("letra");
+
+  function escreverLinha() {
+    if (linha < letraMusica.length) {
+      elemento.innerHTML = letraMusica[linha];
+      linha++;
+      setTimeout(escreverLinha, 2500);
+    }
+  }
+
+  escreverLinha();
+}
 
 setInterval(() => {
   const heart = document.createElement('div');
