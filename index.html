@@ -12,6 +12,7 @@ body {
   background: linear-gradient(135deg, #ff9a9e, #ffc3a0);
   text-align: center;
   color: white;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -19,15 +20,20 @@ h1 {
   font-size: 28px;
 }
 
-/* CARTA */
+/* ENVELOPE */
 .envelope {
   width: 300px;
   height: 200px;
-  background: #ffb6c1;
+  background: #ff6b81;
   margin: 40px auto;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.envelope:hover {
+  transform: scale(1.05);
 }
 
 .letter {
@@ -41,12 +47,28 @@ h1 {
   padding: 15px;
   box-sizing: border-box;
   transform: translateY(100%);
-  transition: 0.8s;
+  transition: 1s;
   color: #333;
+  opacity: 0;
 }
 
 .envelope.open .letter {
   transform: translateY(0);
+  opacity: 1;
+}
+
+/* TEXTO ANIMADO */
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #ff4d6d;
+  width: 0;
+  animation: typing 4s steps(60, end) forwards;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
 .gallery img {
@@ -54,6 +76,7 @@ h1 {
   max-width: 250px;
   border-radius: 15px;
   margin: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 iframe {
@@ -61,7 +84,7 @@ iframe {
   border-radius: 15px;
 }
 
-/* corações */
+/* CORAÇÕES */
 .heart {
   position: fixed;
   bottom: -10px;
@@ -72,21 +95,24 @@ iframe {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100vh); opacity: 0; }
 }
+
+.footer {
+  margin: 40px 10px;
+  font-size: 18px;
+  opacity: 0.9;
+}
 </style>
 </head>
 
 <body>
 
 <h1>Julies ❤️ Diogo</h1>
-<p>Clique na carta 💌</p>
+<p>Abra a carta 💌</p>
 
 <div class="envelope" onclick="abrirCarta(this)">
   <div class="letter">
     <h3>Meu amor 💕</h3>
-    <p>
-      Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕,<br><br>
-      Obrigada por se tornar tão especial para mim.
-    </p>
+    <p id="texto" class="typing"></p>
   </div>
 </div>
 
@@ -98,13 +124,35 @@ iframe {
 </div>
 
 <h2>Nossa música 🎶</h2>
-<iframe width="300" height="170" src="https://www.youtube.com/embed/_9hkXCYiEjc" allow="autoplay"></iframe>
+<iframe width="300" height="170" src="https://www.youtube.com/embed/_9hkXCYiEjc?enablejsapi=1" allow="autoplay"></iframe>
+
+<div class="footer">
+  💕 Obrigada por existir e por escolher ficar.<br>
+  Eu te amo 💖
+</div>
 
 <script>
+const mensagem = "Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕, Obrigada por se tornar tão especial para mim.";
+
 function abrirCarta(el) {
   el.classList.toggle('open');
+
+  let i = 0;
+  const texto = document.getElementById('texto');
+  texto.innerHTML = "";
+
+  function escrever() {
+    if (i < mensagem.length) {
+      texto.innerHTML += mensagem.charAt(i);
+      i++;
+      setTimeout(escrever, 40);
+    }
+  }
+
+  escrever();
 }
 
+// corações
 setInterval(() => {
   const heart = document.createElement('div');
   heart.classList.add('heart');
