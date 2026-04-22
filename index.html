@@ -79,11 +79,22 @@ button {
 }
 
 #letra {
-  max-width: 90%;
-  margin: 20px auto;
+  max-width: 600px;
+  margin: 30px auto;
   font-size: 18px;
-  line-height: 1.6;
-  white-space: pre-line;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.linha {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.linha.aparecer {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .destaque {
@@ -138,7 +149,7 @@ button {
 </audio>
 
 <h2>🎶 Nossa música</h2>
-<p id="letra"></p>
+<div id="letra"></div>
 
 <script>
 const mensagem = "Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕, Obrigada por se tornar tão especial para mim.";
@@ -184,8 +195,7 @@ function atualizarContador() {
 
 setInterval(atualizarContador, 1000);
 
-const letraCompleta = `
-Maybe I
+const letraCompleta = `Maybe I
 Talvez eu
 
 Lost my mind
@@ -243,24 +253,45 @@ I need a virtual connection
 Eu preciso de uma conexão virtual
 
 Be my video obsession
-Seja minha obsessão em vídeo
-`;
+Seja minha obsessão em vídeo`;
 
 function mostrarLetraCompleta() {
   const elemento = document.getElementById("letra");
+
+  const linhas = letraCompleta.split("\n");
+
   elemento.innerHTML = "";
 
-  let i = 0;
+  linhas.forEach((linha) => {
+    const p = document.createElement("p");
+    p.classList.add("linha");
 
-  function escrever() {
-    if (i < letraCompleta.length) {
-      elemento.innerHTML += letraCompleta.charAt(i);
-      i++;
-      setTimeout(escrever, 20);
+    if (linha.includes("span")) {
+      p.innerHTML = linha;
+    } else {
+      p.textContent = linha;
     }
-  }
 
-  escrever();
+    elemento.appendChild(p);
+  });
+
+  observarLinhas();
+}
+
+function observarLinhas() {
+  const linhas = document.querySelectorAll(".linha");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("aparecer");
+      }
+    });
+  });
+
+  linhas.forEach((linha) => {
+    observer.observe(linha);
+  });
 }
 
 setInterval(() => {
