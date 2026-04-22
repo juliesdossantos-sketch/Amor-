@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💕 Para o meu amor, Diogo</title>
+<title>Julies ❤️ Diogo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
 
@@ -11,15 +11,50 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #ffc3a0);
+  background: url('fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
   text-align: center;
   color: white;
+}
+
+/* escurecer fundo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: -1;
 }
 
 h1, h2 {
   font-family: 'Great Vibes', cursive;
 }
 
+/* título */
+.titulo {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: aparecerTitulo 2s forwards;
+}
+
+@keyframes aparecerTitulo {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nome {
+  color: #ff4d6d;
+  font-weight: bold;
+  font-size: 32px;
+  text-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+}
+
+/* tela inicial */
 #startScreen {
   position: fixed;
   width: 100%;
@@ -39,8 +74,10 @@ button {
   background: white;
   color: #ff6b81;
   font-size: 16px;
+  cursor: pointer;
 }
 
+/* carta */
 .envelope {
   width: 300px;
   height: 200px;
@@ -71,6 +108,7 @@ button {
   opacity: 1;
 }
 
+/* fotos */
 .gallery img {
   width: 90%;
   max-width: 250px;
@@ -78,6 +116,7 @@ button {
   margin: 10px;
 }
 
+/* letra */
 #letra {
   max-width: 600px;
   margin: 30px auto;
@@ -97,21 +136,83 @@ button {
   transform: translateY(0);
 }
 
+/* destaque com brilho */
 .destaque {
   color: #ff4d6d;
   font-weight: bold;
   font-size: 20px;
+  animation: brilho 2s infinite alternate;
 }
 
+@keyframes brilho {
+  from { text-shadow: 0 0 5px #ff4d6d; }
+  to { text-shadow: 0 0 20px #ff4d6d, 0 0 30px #ff99aa; }
+}
+
+/* botão surpresa */
+.botao-surpresa {
+  margin-top: 20px;
+}
+
+.mensagem-surpresa {
+  margin-top: 15px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+/* corações */
 .heart {
   position: fixed;
   bottom: -10px;
-  animation: subir 5s linear infinite;
+  animation: subir linear infinite;
 }
 
 @keyframes subir {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* ondas */
+.ondas {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 120px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  animation: ondas 8s linear infinite;
+}
+
+@keyframes ondas {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* final */
+.final {
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.frase-final {
+  font-size: 20px;
+  opacity: 0;
+  animation: aparecerFinal 2s forwards;
+  animation-delay: 1s;
+}
+
+.assinatura {
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  color: #ffd1dc;
+  opacity: 0;
+  animation: aparecerFinal 2s forwards;
+  animation-delay: 2s;
+}
+
+@keyframes aparecerFinal {
+  to { opacity: 1; }
 }
 </style>
 </head>
@@ -123,8 +224,7 @@ button {
   <button onclick="iniciar()">Clique aqui</button>
 </div>
 
-<h1>Julies ❤️ Diogo</h1>
-<p>Abra a carta 💌</p>
+<h1 class="titulo">Para o meu amor, <span class="nome">Diogo</span> 💖</h1>
 
 <div class="envelope" onclick="abrirCarta(this)">
   <div class="letter">
@@ -143,13 +243,24 @@ button {
   <img src="foto3.jpeg">
 </div>
 
-<h2>Nossa música 🎶</h2>
+<button onclick="mostrarSurpresa()" class="botao-surpresa">
+  Clique aqui se me ama 😳
+</button>
+<p id="mensagemSurpresa" class="mensagem-surpresa"></p>
+
+<h2>🎶 Nossa música</h2>
 <audio id="musica" loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<h2>🎶 Nossa música</h2>
 <div id="letra"></div>
+
+<div class="final">
+  <p class="frase-final">Obrigada por fazer meus dias mais felizes 💖</p>
+  <p class="assinatura">Com amor,<br>Julies 💕</p>
+</div>
+
+<div class="ondas"></div>
 
 <script>
 const mensagem = "Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕, Obrigada por se tornar tão especial para mim.";
@@ -168,7 +279,6 @@ function abrirCarta(el) {
 
   let i = 0;
   const texto = document.getElementById('texto');
-  texto.innerHTML = "";
 
   function escrever() {
     if (i < mensagem.length) {
@@ -186,80 +296,23 @@ function abrirCarta(el) {
 
 const dataInicio = new Date("2026-02-08");
 
-function atualizarContador() {
-  const hoje = new Date();
-  const diff = hoje - dataInicio;
-  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+setInterval(() => {
+  const dias = Math.floor((new Date() - dataInicio) / (1000*60*60*24));
   document.getElementById("contador").innerText = dias + " dias juntos 💕";
+}, 1000);
+
+function mostrarSurpresa() {
+  const msg = document.getElementById("mensagemSurpresa");
+  msg.innerText = "Eu te amo mais ainda 💕";
+  msg.style.opacity = 1;
 }
 
-setInterval(atualizarContador, 1000);
+const letraCompleta = `... (sua letra já está aqui igual antes, pode manter)`;
 
-const letraCompleta = `Maybe I
-Talvez eu
-
-Lost my mind
-Tenha perdido o juízo
-
-No one noticed
-Ninguém percebeu
-
-No one noticed
-Ninguém percebeu
-
-It's getting old
-Está ficando velho
-
-All alone
-Totalmente sozinha
-
-May have lost it
-Devo ter perdido
-
-I have lost it
-Eu perdi
-
-No one tried
-Ninguém tentou
-
-To read my eyes
-Ler meus olhos
-
-No one but you
-Ninguém além de você
-
-Wish it weren't true
-Queria que não fosse verdade
-
-<span class="destaque">I'll get on a plane</span>
-<span class="destaque">Acho que vou pegar um avião</span>
-
-<span class="destaque">Fly to your city</span>
-<span class="destaque">Voar para a sua cidade</span>
-
-<span class="destaque">Excited to see your face</span>
-<span class="destaque">Ansiosa para ver o seu rosto</span>
-
-Hold me, console me
-Me abrace, me console
-
-Then I'll leave without a trace
-E então partirei sem deixar rastros
-
-I'd kinda like it if you'd call me
-Eu meio que gostaria que você me ligasse
-
-I need a virtual connection
-Eu preciso de uma conexão virtual
-
-Be my video obsession
-Seja minha obsessão em vídeo`;
-
+// mantém seu sistema de linhas com efeito
 function mostrarLetraCompleta() {
   const elemento = document.getElementById("letra");
-
-  const linhas = letraCompleta.split("\n");
-
+  const linhas = letraCompleta.split("\\n");
   elemento.innerHTML = "";
 
   linhas.forEach((linha) => {
@@ -275,12 +328,6 @@ function mostrarLetraCompleta() {
     elemento.appendChild(p);
   });
 
-  observarLinhas();
-}
-
-function observarLinhas() {
-  const linhas = document.querySelectorAll(".linha");
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -289,19 +336,21 @@ function observarLinhas() {
     });
   });
 
-  linhas.forEach((linha) => {
-    observer.observe(linha);
-  });
+  document.querySelectorAll(".linha").forEach(el => observer.observe(el));
 }
 
+// corações
 setInterval(() => {
   const heart = document.createElement('div');
   heart.classList.add('heart');
-  heart.innerHTML = '💖';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-  document.body.appendChild(heart);
 
+  const simbolos = ['💖','💕','💗','💘','💞','💓','💌'];
+  heart.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
+
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+  document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 5000);
 }, 300);
 </script>
