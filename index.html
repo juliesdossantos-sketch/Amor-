@@ -17,12 +17,9 @@ body {
   color: white;
 }
 
-/* escurecer fundo */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.4);
@@ -33,7 +30,6 @@ h1, h2 {
   font-family: 'Great Vibes', cursive;
 }
 
-/* título */
 .titulo {
   opacity: 0;
   transform: translateY(-20px);
@@ -41,20 +37,15 @@ h1, h2 {
 }
 
 @keyframes aparecerTitulo {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .nome {
   color: #ff4d6d;
-  font-weight: bold;
   font-size: 32px;
   text-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
 }
 
-/* tela inicial */
 #startScreen {
   position: fixed;
   width: 100%;
@@ -69,15 +60,12 @@ h1, h2 {
 
 button {
   padding: 12px 20px;
-  border: none;
   border-radius: 20px;
+  border: none;
   background: white;
-  color: #ff6b81;
-  font-size: 16px;
-  cursor: pointer;
+  color: #ff4d6d;
 }
 
-/* carta */
 .envelope {
   width: 300px;
   height: 200px;
@@ -99,8 +87,8 @@ button {
   padding: 15px;
   transform: translateY(100%);
   transition: 1s;
-  color: #333;
   opacity: 0;
+  color: #333;
 }
 
 .envelope.open .letter {
@@ -108,7 +96,6 @@ button {
   opacity: 1;
 }
 
-/* fotos */
 .gallery img {
   width: 90%;
   max-width: 250px;
@@ -116,19 +103,17 @@ button {
   margin: 10px;
 }
 
-/* letra */
 #letra {
   max-width: 600px;
   margin: 30px auto;
-  font-size: 18px;
-  line-height: 1.8;
   text-align: left;
+  line-height: 1.8;
 }
 
 .linha {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.8s ease;
+  transition: 0.8s;
 }
 
 .linha.aparecer {
@@ -136,31 +121,26 @@ button {
   transform: translateY(0);
 }
 
-/* destaque com brilho */
 .destaque {
   color: #ff4d6d;
   font-weight: bold;
-  font-size: 20px;
   animation: brilho 2s infinite alternate;
 }
 
 @keyframes brilho {
   from { text-shadow: 0 0 5px #ff4d6d; }
-  to { text-shadow: 0 0 20px #ff4d6d, 0 0 30px #ff99aa; }
+  to { text-shadow: 0 0 20px #ff4d6d; }
 }
 
-/* botão surpresa */
 .botao-surpresa {
   margin-top: 20px;
 }
 
 .mensagem-surpresa {
-  margin-top: 15px;
   opacity: 0;
   transition: 0.5s;
 }
 
-/* corações */
 .heart {
   position: fixed;
   bottom: -10px;
@@ -168,15 +148,12 @@ button {
 }
 
 @keyframes subir {
-  0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* ondas */
 .ondas {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 200%;
   height: 120px;
   background: rgba(255,255,255,0.15);
@@ -185,34 +162,16 @@ button {
 }
 
 @keyframes ondas {
-  0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* final */
 .final {
-  margin-top: 50px;
-  margin-bottom: 40px;
-}
-
-.frase-final {
-  font-size: 20px;
-  opacity: 0;
-  animation: aparecerFinal 2s forwards;
-  animation-delay: 1s;
+  margin: 50px 0;
 }
 
 .assinatura {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Great Vibes';
   font-size: 28px;
-  color: #ffd1dc;
-  opacity: 0;
-  animation: aparecerFinal 2s forwards;
-  animation-delay: 2s;
-}
-
-@keyframes aparecerFinal {
-  to { opacity: 1; }
 }
 </style>
 </head>
@@ -244,7 +203,7 @@ button {
 </div>
 
 <button onclick="mostrarSurpresa()" class="botao-surpresa">
-  Clique aqui se me ama 😳
+Clique aqui se me ama 😳
 </button>
 <p id="mensagemSurpresa" class="mensagem-surpresa"></p>
 
@@ -256,7 +215,7 @@ button {
 <div id="letra"></div>
 
 <div class="final">
-  <p class="frase-final">Obrigada por fazer meus dias mais felizes 💖</p>
+  <p>Obrigada por fazer meus dias mais felizes 💖</p>
   <p class="assinatura">Com amor,<br>Julies 💕</p>
 </div>
 
@@ -297,7 +256,7 @@ function abrirCarta(el) {
 const dataInicio = new Date("2026-02-08");
 
 setInterval(() => {
-  const dias = Math.floor((new Date() - dataInicio) / (1000*60*60*24));
+  const dias = Math.floor((new Date() - dataInicio)/(1000*60*60*24));
   document.getElementById("contador").innerText = dias + " dias juntos 💕";
 }, 1000);
 
@@ -307,130 +266,62 @@ function mostrarSurpresa() {
   msg.style.opacity = 1;
 }
 
-const letraCompleta = `... Talvez eu
+const letraCompleta = `Maybe I
+Talvez eu
 
-
+Lost my mind
 Tenha perdido o juízo
 
+No one noticed
 Ninguém percebeu
 
+No one noticed
 Ninguém percebeu
 
+<span class="destaque">I'll get on a plane</span>
+<span class="destaque">Acho que vou pegar um avião</span>
 
-Está ficando velho (eu meio que gostaria que você me ligasse)
+<span class="destaque">Fly to your city</span>
+<span class="destaque">Voar para a sua cidade</span>
 
-Totalmente sozinha (porque cansei de me sentir solitária)
+<span class="destaque">Excited to see your face</span>
+<span class="destaque">Ansiosa para ver o seu rosto</span>
+`;
 
-Devo ter perdido (eu preciso de uma conexão virtual)
-
-Eu perdi (seja minha obsessão em vídeo)
-
-
-Ninguém tentou
-
-Ler meus olhos
-
-Ninguém além de você
-
-Queria que não fosse verdade
-
-
-Talvez eu (eu meio que gostaria que você me ligasse)
-
-Não está certo (porque cansei de ficar solitária)
-
-Te fazer meu (eu preciso de uma conexão virtual)
-
-Iremos com calma (seja minha obsessão em vídeo)
-
-
-Vamos, não me deixe, não pode ser tão fácil, meu bem
-
-Se você acredita em mim, acho que vou pegar um avião
-
-Voar para a sua cidade, ansiosa para ver o seu rosto
-
-Me abrace, me console, e então partirei sem deixar rastros
-
-
-Vamos, não me deixe, não pode ser tão fácil, meu bem
-
-<span class="destaque">Se você acredita em mim, acho que vou pegar um avião</span>
-
-<span class="destaque">Voar para a sua cidade, ansiosa para ver o seu rosto</span>
-
-<span class="destaque">Me abrace, me console, e então partirei sem deixar rastros</span>
-
-
-Vamos, não me deixe, não pode ser tão fácil, meu bem
-
-Se você acredita em mim, acho que vou pegar um avião
-
-Voar para a sua cidade, ansiosa para ver o seu rosto
-
-Me abrace, me console, e então partirei sem deixar rastros
-
-
-(Talvez eu) vamos, não me deixe, não pode ser tão fácil, meu bem
-
-(Não está certo) se você acredita em mim, acho que vou pegar um avião
-
-(Te fazer meu) voar para a sua cidade, ansiosa para ver o seu rosto
-
-(Iremos com calma) me abrace, me console, e então partirei sem deixar rastros
-
-
-Eu meio que gostaria que você me ligasse
-
-(Não está certo) porque cansei de ficar solitária
-
-(Te fazer meu) eu preciso de uma conexão virtual
-(Iremos com calma) seja minha obsessão em vídeo`;
-
-// mantém seu sistema de linhas com efeito
 function mostrarLetraCompleta() {
-  const elemento = document.getElementById("letra");
-  const linhas = letraCompleta.split("\\n");
-  elemento.innerHTML = "";
+  const el = document.getElementById("letra");
+  el.innerHTML = "";
 
-  linhas.forEach((linha) => {
+  letraCompleta.split("\n").forEach(linha => {
     const p = document.createElement("p");
     p.classList.add("linha");
 
-    if (linha.includes("span")) {
-      p.innerHTML = linha;
-    } else {
-      p.textContent = linha;
-    }
+    if (linha.includes("span")) p.innerHTML = linha;
+    else p.textContent = linha;
 
-    elemento.appendChild(p);
+    el.appendChild(p);
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("aparecer");
-      }
-    });
+  const obs = new IntersectionObserver(e => {
+    e.forEach(i => i.isIntersecting && i.target.classList.add("aparecer"));
   });
 
-  document.querySelectorAll(".linha").forEach(el => observer.observe(el));
+  document.querySelectorAll(".linha").forEach(l => obs.observe(l));
 }
 
-// corações
 setInterval(() => {
   const heart = document.createElement('div');
   heart.classList.add('heart');
 
   const simbolos = ['💖','💕','💗','💘','💞','💓','💌'];
-  heart.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
+  heart.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
 
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+  heart.style.left = Math.random()*100 + 'vw';
+  heart.style.animationDuration = (Math.random()*3+3)+'s';
 
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 5000);
-}, 300);
+  setTimeout(()=>heart.remove(),5000);
+},300);
 </script>
 
 </body>
