@@ -3,110 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Julies ❤️ Diogo</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: url('fundo.jpg') no-repeat center center fixed;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('fundo.jpg');
   background-size: cover;
-  text-align: center;
+  background-position: center;
   color: white;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  z-index: -1;
+.container {
+  max-width: 750px;
+  margin: auto;
+  padding: 20px;
+  backdrop-filter: blur(10px);
 }
 
-h1, h2 {
-  font-family: 'Great Vibes', cursive;
-}
-
+/* título */
 .titulo {
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: aparecerTitulo 2s forwards;
-}
-
-@keyframes aparecerTitulo {
-  to { opacity: 1; transform: translateY(0); }
+  font-family: 'Great Vibes';
+  font-size: 40px;
+  text-align: center;
 }
 
 .nome {
-  color: #ff4d6d;
-  font-size: 32px;
-  text-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+  color: #ff6b81;
+  text-shadow: 0 0 15px rgba(255,100,120,0.8);
 }
 
-#startScreen {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #ff6b81;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 10;
-}
-
-button {
-  padding: 12px 20px;
-  border-radius: 20px;
-  border: none;
-  background: white;
-  color: #ff4d6d;
-}
-
+/* carta */
 .envelope {
-  width: 300px;
-  height: 200px;
-  background: #ff6b81;
-  margin: 40px auto;
-  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px;
   cursor: pointer;
-  position: relative;
+  margin-top: 20px;
 }
 
 .letter {
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  background: #fff0f5;
-  top: 5%;
-  left: 5%;
-  border-radius: 10px;
-  padding: 15px;
-  transform: translateY(100%);
-  transition: 1s;
   opacity: 0;
-  color: #333;
+  transition: 1s;
 }
 
 .envelope.open .letter {
-  transform: translateY(0);
   opacity: 1;
 }
 
-.gallery img {
-  width: 90%;
-  max-width: 250px;
-  border-radius: 15px;
-  margin: 10px;
+/* contador */
+#contador {
+  text-align: center;
+  font-size: 18px;
+  margin: 15px 0;
 }
 
+/* galeria */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* modal zoom */
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+#modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 15px;
+  animation: zoom 0.3s ease;
+}
+
+@keyframes zoom {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* botão */
+.botao-surpresa {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: #ff6b81;
+  color: white;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.mensagem-surpresa {
+  margin-top: 10px;
+}
+
+/* letra */
 #letra {
-  max-width: 600px;
-  margin: 30px auto;
-  text-align: left;
+  margin-top: 30px;
   line-height: 1.8;
 }
 
@@ -122,84 +140,54 @@ button {
 }
 
 .destaque {
-  color: #ff4d6d;
+  color: #ff6b81;
   font-weight: bold;
-  animation: brilho 2s infinite alternate;
+  text-shadow: 0 0 10px #ff6b81;
 }
 
-@keyframes brilho {
-  from { text-shadow: 0 0 5px #ff4d6d; }
-  to { text-shadow: 0 0 20px #ff4d6d; }
+/* assinatura */
+.assinatura {
+  font-family: 'Great Vibes';
+  font-size: 30px;
+  text-align: center;
+  margin-top: 40px;
 }
 
-.botao-surpresa {
-  margin-top: 20px;
-}
-
-.mensagem-surpresa {
-  opacity: 0;
-  transition: 0.5s;
-}
-
+/* corações */
 .heart {
   position: fixed;
-  bottom: -10px;
+  bottom: 0;
   animation: subir linear infinite;
 }
 
 @keyframes subir {
-  100% { transform: translateY(-100vh); opacity: 0; }
-}
-
-.ondas {
-  position: fixed;
-  bottom: 0;
-  width: 200%;
-  height: 120px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
-  animation: ondas 8s linear infinite;
-}
-
-@keyframes ondas {
-  100% { transform: translateX(-50%); }
-}
-
-.final {
-  margin: 50px 0;
-}
-
-.assinatura {
-  font-family: 'Great Vibes';
-  font-size: 28px;
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="startScreen">
-  <h1>Tenho algo pra você 💖</h1>
-  <button onclick="iniciar()">Clique aqui</button>
-</div>
+<div class="container">
 
 <h1 class="titulo">Para o meu amor, <span class="nome">Diogo</span> 💖</h1>
 
 <div class="envelope" onclick="abrirCarta(this)">
   <div class="letter">
-    <h3>Meu amor 💕</h3>
     <p id="texto"></p>
   </div>
 </div>
 
-<h2>Estamos juntos há ⏳</h2>
 <p id="contador"></p>
 
-<h2>Nossos momentos 📸</h2>
+<h2>📸 Nossos momentos</h2>
 <div class="gallery">
-  <img src="foto1.jpeg">
-  <img src="foto2.jpeg">
-  <img src="foto3.jpeg">
+  <img src="foto1.jpeg" onclick="abrirImagem(this)">
+  <img src="foto2.jpeg" onclick="abrirImagem(this)">
+  <img src="foto3.jpeg" onclick="abrirImagem(this)">
 </div>
 
 <button onclick="mostrarSurpresa()" class="botao-surpresa">
@@ -209,119 +197,75 @@ Clique aqui se me ama 😳
 
 <h2>🎶 Nossa música</h2>
 <audio id="musica" loop>
-  <source src="musica.mp3" type="audio/mpeg">
+  <source src="musica.mp3">
 </audio>
 
 <div id="letra"></div>
 
-<div class="final">
-  <p>Obrigada por fazer meus dias mais felizes 💖</p>
-  <p class="assinatura">Com amor,<br>Julies 💕</p>
+<p class="assinatura">Com amor,<br>Julies 💕</p>
+
 </div>
 
-<div class="ondas"></div>
+<!-- modal zoom -->
+<div id="modal" onclick="fecharImagem()">
+  <img id="imgModal">
+</div>
 
 <script>
 const mensagem = "Eu te amo diogo, hoje em dia sou muito feliz ao seu lado e continuaremos assim por muito tempo 💕, Obrigada por se tornar tão especial para mim.";
 
-function iniciar() {
-  document.getElementById('startScreen').style.display = 'none';
-}
-
-let jaAbriu = false;
-
-function abrirCarta(el) {
-  if (jaAbriu) return;
-  jaAbriu = true;
-
+function abrirCarta(el){
   el.classList.add('open');
-
-  let i = 0;
-  const texto = document.getElementById('texto');
-
-  function escrever() {
-    if (i < mensagem.length) {
-      texto.innerHTML += mensagem.charAt(i);
-      i++;
-      setTimeout(escrever, 40);
-    }
-  }
-
-  setTimeout(escrever, 500);
-
+  document.getElementById("texto").innerText = mensagem;
   document.getElementById("musica").play();
-  mostrarLetraCompleta();
+  mostrarLetra();
 }
 
 const dataInicio = new Date("2026-02-08");
 
-setInterval(() => {
-  const dias = Math.floor((new Date() - dataInicio)/(1000*60*60*24));
+setInterval(()=>{
+  const dias = Math.floor((new Date()-dataInicio)/(1000*60*60*24));
   document.getElementById("contador").innerText = dias + " dias juntos 💕";
-}, 1000);
+},1000);
 
-function mostrarSurpresa() {
-  const msg = document.getElementById("mensagemSurpresa");
-  msg.innerText = "Eu te amo mais ainda 💕";
-  msg.style.opacity = 1;
+function mostrarSurpresa(){
+  document.getElementById("mensagemSurpresa").innerText = "Eu te amo mais ainda 💖";
 }
 
-const letraCompleta = `Maybe I
-Talvez eu
+/* zoom imagem */
+function abrirImagem(img){
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("imgModal").src = img.src;
+}
 
-Lost my mind
-Tenha perdido o juízo
+function fecharImagem(){
+  document.getElementById("modal").style.display = "none";
+}
 
-No one noticed
-Ninguém percebeu
+/* letra */
+const letraCompleta = `
+<span class="destaque">Fly to your city</span><br>
+Voar para sua cidade<br><br>
 
-No one noticed
-Ninguém percebeu
-
-<span class="destaque">I'll get on a plane</span>
-<span class="destaque">Acho que vou pegar um avião</span>
-
-<span class="destaque">Fly to your city</span>
-<span class="destaque">Voar para a sua cidade</span>
-
-<span class="destaque">Excited to see your face</span>
-<span class="destaque">Ansiosa para ver o seu rosto</span>
+<span class="destaque">Excited to see your face</span><br>
+Ansiosa para ver o seu rosto
 `;
 
-function mostrarLetraCompleta() {
+function mostrarLetra(){
   const el = document.getElementById("letra");
-  el.innerHTML = "";
-
-  letraCompleta.split("\n").forEach(linha => {
-    const p = document.createElement("p");
-    p.classList.add("linha");
-
-    if (linha.includes("span")) p.innerHTML = linha;
-    else p.textContent = linha;
-
-    el.appendChild(p);
-  });
-
-  const obs = new IntersectionObserver(e => {
-    e.forEach(i => i.isIntersecting && i.target.classList.add("aparecer"));
-  });
-
-  document.querySelectorAll(".linha").forEach(l => obs.observe(l));
+  el.innerHTML = letraCompleta;
 }
 
-setInterval(() => {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-
-  const simbolos = ['💖','💕','💗','💘','💞','💓','💌'];
-  heart.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
-
-  heart.style.left = Math.random()*100 + 'vw';
-  heart.style.animationDuration = (Math.random()*3+3)+'s';
-
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
-},300);
+/* corações */
+setInterval(()=>{
+  let h=document.createElement('div');
+  h.classList.add('heart');
+  h.innerHTML=['💖','💕','💗','💘'][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(Math.random()*3+3)+'s';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},400);
 </script>
 
 </body>
